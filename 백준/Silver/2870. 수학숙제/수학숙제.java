@@ -11,6 +11,8 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
 
+        // 1. int(32bit) : 10자리
+        // 2. long(64bit) : 19자리
         int M = Integer.parseInt(br.readLine());
         List<BigInteger> answers = new ArrayList<>();
         for (int i = 0; i < M; i++) {
