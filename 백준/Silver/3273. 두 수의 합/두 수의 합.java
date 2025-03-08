@@ -16,7 +16,7 @@ public class Main {
 			arr[i] = Integer.valueOf(st.nextToken());
 		}
 		
-		Arrays.sort(arr);	// 원소의 개수가 많을 때 더 유리.
+		Arrays.sort(arr);	
 		
 		int x = Integer.valueOf(br.readLine());
 		int count = 0;
