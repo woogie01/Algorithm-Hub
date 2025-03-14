@@ -8,28 +8,22 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        // 임시 노드 
-        ListNode node = new ListNode(0);
-        ListNode root = node;
+       if (head != null && head.next != null) {
+           
+           // head, tail
+           ListNode tail = head.next;
+           ListNode nextHead = tail.next;
+           
+           // 뒤의 스왑으로 바뀔 노드를 연결
+           head.next = swapPairs(nextHead);
 
-        node.next = head;
-        while (node.next != null && node.next.next != null) {
-            
-            // node(=first), mid, end
-            ListNode mid = node.next;
-            ListNode end = node.next.next;
-
-            // Swap
-            mid.next = end.next;
-            node.next= end;
-            node.next.next = mid;
-
-            // 두 칸 이동
-            node = node.next.next;
-        }
-        // 임시 노드는 제외
-        return root.next;
+           // head, tail 역순으로 연결
+           tail.next = head;
+           return tail;
+       }
+       return head;
     }
 }
