@@ -10,46 +10,36 @@ import java.math.BigInteger;
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- 
+
 class Solution {
-       public ListNode reverse(ListNode node, ListNode prev) {
-        // 종료 조건
-        if (node == null) {
-            return prev;
-        }
-
-        // 다음 노드와 현재 노드로 재귀함수 호출
-        ListNode next = node.next;
-        node.next = prev;
-        return reverse(next, node);
-    }
-
-    public BigInteger toBigInt(ListNode node) {
-        StringBuilder sb = new StringBuilder();
-        while (node != null) {
-            sb.append(node.val);
-            node = node.next;
-        }
-        return new BigInteger(sb.toString());
-    }
-
-    public ListNode toReverseLinkedList(BigInteger val) {
-        ListNode prev = null, node = null;
-        for (char ch : String.valueOf(val).toCharArray()) {
-            // 노드간 연결 맺기
-            node = new ListNode(Character.getNumericValue(ch));
-            node.next = prev;
-            prev = node;
-        }
-        return node;
-    }
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        // 역순으로 뒤집기
-        ListNode l1Reversed = reverse(l1, null);
-        ListNode l2Reversed = reverse(l2, null);
+       // 초기 계산을 위한 임시 노드
+       ListNode node = new ListNode(0);
+       ListNode root = node;
 
-        BigInteger result = toBigInt(l1Reversed).add(toBigInt(l2Reversed));
-        return toReverseLinkedList(result);
+       int sum, carry = 0, remainder;
+       while (l1 != null || l2 != null || carry != 0) {
+        sum = 0;
+        // 첫 번째 연결 리스트 계산
+        if (l1 != null) {
+            sum += l1.val;
+            l1 = l1.next;
+        }
+        // 두 번째 연결 리스트 계산
+           if (l2 != null) {
+            sum += l2.val;
+            l2 = l2.next;
+        }
+
+        // 노드에 남길 값 
+        remainder = (sum + carry) % 10;
+        carry = (sum + carry) / 10;
+
+        // 뒤집어서 노드 연결
+        node.next = new ListNode(remainder);
+        node = node.next;
+       }
+       // 첫 번째 노드는 제외하고 반환
+       return root.next;
     }
 }
