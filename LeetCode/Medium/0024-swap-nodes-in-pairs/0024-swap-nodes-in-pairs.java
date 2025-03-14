@@ -8,7 +8,6 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-
 class Solution {
     public ListNode swapPairs(ListNode head) {
         // 임시 노드 
@@ -18,7 +17,7 @@ class Solution {
         node.next = head;
         while (node.next != null && node.next.next != null) {
             
-            // node(=front), mid, end
+            // node(=first), mid, end
             ListNode mid = node.next;
             ListNode end = node.next.next;
 
