@@ -10,7 +10,7 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        /** null 예외 처리 */
+        /** 종료조건 : null 예외 처리 */
         if (list1 == null) return list2;
         if (list2 == null) return list1;
 
