@@ -17,7 +17,7 @@ class Solution {
         node.next = head;
         while (node.next != null && node.next.next != null) {
             
-            // node(=first), mid, end
+            // node(=front), mid, end
             ListNode mid = node.next;
             ListNode end = node.next.next;
 
