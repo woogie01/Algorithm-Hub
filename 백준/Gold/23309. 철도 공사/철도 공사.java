@@ -9,30 +9,30 @@ public class Main {
     public static class ListNode {
 
         /** 인덱스를 "해당 역의 고유번호"로 설정 */
-        public int[] preNodes;
-        public int[] postNodes;
+        public int[] prevNodes;
+        public int[] nextNodes;
 
         ListNode() {
-            preNodes = new int[1000001];
-            postNodes = new int[1000001];
+            prevNodes = new int[1000001];
+            nextNodes = new int[1000001];
         }
 
         // 해당 노드 뒤에 추가
         public void add(int curr, int newNode) {
             if (curr == -1) {
-                preNodes[newNode] = postNodes[newNode] = newNode;
+                prevNodes[newNode] = nextNodes[newNode] = newNode;
                 return;
             }
-            preNodes[newNode] = curr;
-            postNodes[newNode] = postNodes[curr];
-            preNodes[postNodes[curr]] = newNode;
-            postNodes[curr] = newNode;
+            prevNodes[newNode] = curr;
+            nextNodes[newNode] = nextNodes[curr];
+            prevNodes[nextNodes[curr]] = newNode;
+            nextNodes[curr] = newNode;
         }
 
         // 해당 노드 삭제
         public void delete(int targetNode) {
-            postNodes[preNodes[targetNode]] = postNodes[targetNode];
-            preNodes[postNodes[targetNode]] = preNodes[targetNode];
+            nextNodes[prevNodes[targetNode]] = nextNodes[targetNode];
+            prevNodes[nextNodes[targetNode]] = prevNodes[targetNode];
         }
     }
 
@@ -45,6 +45,7 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
+        // 기존 역들 추가
         ListNode listNode = new ListNode();
         st = new StringTokenizer(br.readLine());
         int curr = -1;
@@ -63,20 +64,20 @@ public class Main {
 
             switch (op) {
                 case "BN":
-                    result.append(listNode.postNodes[curr]).append("\n");
+                    result.append(listNode.nextNodes[curr]).append("\n");
                     listNode.add(curr, newNode);
                     break;
                 case "BP":
-                    result.append(listNode.preNodes[curr]).append("\n");
-                    listNode.add(listNode.preNodes[curr], newNode);
+                    result.append(listNode.prevNodes[curr]).append("\n");
+                    listNode.add(listNode.prevNodes[curr], newNode);
                     break;
                 case "CN":
-                    result.append(listNode.postNodes[curr]).append("\n");
-                    listNode.delete(listNode.postNodes[curr]);
+                    result.append(listNode.nextNodes[curr]).append("\n");
+                    listNode.delete(listNode.nextNodes[curr]);
                     break;
                 case "CP":
-                    result.append(listNode.preNodes[curr]).append("\n");
-                    listNode.delete(listNode.preNodes[curr]);
+                    result.append(listNode.prevNodes[curr]).append("\n");
+                    listNode.delete(listNode.prevNodes[curr]);
                     break;
             }
         }
