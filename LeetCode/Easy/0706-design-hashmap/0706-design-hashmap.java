@@ -28,10 +28,12 @@ public class MyHashMap {
                 node.val = value;
                 return;
             }
-            if (node.next == null) break;
+            if (node.next == null) {
+                node.next = new Node(key, value);
+                return;
+            }
             node = node.next;
         }
-        node.next = new Node(key, value);
     }
 
     public int get(int key) {
